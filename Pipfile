@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "2.3.3"
+flask-smorest = "*"
+marshmallow = "*"
+sqlalchemy = "2.0.20"
+flask-sqlalchemy = "3.0.5"
+
+importlib-metadata = "6.0.0"
+importlib-resources = "5.10.0"
+faker = "14.2.0"
+
+
+[requires]
+python_full_version = "3.11.4"
