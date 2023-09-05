@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields, validates, ValidationError
 from marshmallow.validate import Length, Range
-from models import Planet
+from model import Planet
 
 
 class MoonSchema(Schema):
@@ -13,8 +13,6 @@ class MoonSchema(Schema):
     @validates("planet_id")
     def planet_foreign_key(self, value):
         """planet_id is valid foreign key"""
-        print(value)
-        print(Planet.all.keys())
         if Planet.all.get(value) is None:
             raise ValidationError(f"Foreign key violation for planet_id {value}.")
 

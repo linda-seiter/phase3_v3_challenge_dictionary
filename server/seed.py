@@ -1,4 +1,4 @@
-from models import Planet, Moon
+from model import Planet, Moon
 
 
 def seed():

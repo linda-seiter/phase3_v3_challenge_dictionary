@@ -3,8 +3,8 @@ from flask import Flask, redirect
 from flask_smorest import Api
 
 from default_config import DefaultConfig
-from views.planet import blp as PlanetBlueprint
-from views.moon import blp as MoonBlueprint
+from view.planet import blp as PlanetBlueprint
+from view.moon import blp as MoonBlueprint
 from seed import seed
 
 app = Flask(__name__)
