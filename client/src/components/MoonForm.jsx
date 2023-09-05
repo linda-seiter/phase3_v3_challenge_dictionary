@@ -52,7 +52,8 @@ export default function MoonForm({
     };
     const res = await fetch(`/moons/${moon.id}`, config);
     if (res.ok) {
-      onMoonRequest();
+      const updMoon = await res.json();
+      onMoonRequest(updMoon);
       setFormData({
         name: "",
         orbital_period: 0,

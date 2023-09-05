@@ -4,8 +4,8 @@ import MoonForm from "./MoonForm";
 function MoonCard({ moon, onDelete, onUpdate }) {
   const [showEdit, setShowEdit] = useState(false);
 
-  function handleUpdateMoon() {
-    onUpdate();
+  function handleUpdateMoon(moon) {
+    onUpdate(moon);
     setShowEdit(false);
   }
 

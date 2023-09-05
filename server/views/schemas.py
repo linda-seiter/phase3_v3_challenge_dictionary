@@ -23,3 +23,4 @@ class PlanetSchema(Schema):
     name = fields.Str(required=True, validate=Length(
         min=1, error="Must not be empty string."))
     distance_from_sun = fields.Int(required=True, validate=Range(min=0))
+    
