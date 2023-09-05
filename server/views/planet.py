@@ -22,7 +22,7 @@ class Planets(MethodView):
         return planet
 
 
-@blp.route("/planets/<int:planet_id>")
+@blp.route("/planets/<string:planet_id>")
 class PlanetById(MethodView):
     @blp.response(200, PlanetSchema)
     def get(self, planet_id):
@@ -52,7 +52,7 @@ class PlanetById(MethodView):
         return planet
             
 
-@blp.route("/planets/<int:planet_id>/moons")
+@blp.route("/planets/<string:planet_id>/moons")
 class PlanetMoonsById(MethodView):
     @blp.response(200, MoonSchema(many=True))
     def get(self, planet_id):

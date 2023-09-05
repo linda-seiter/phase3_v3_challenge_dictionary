@@ -1,10 +1,13 @@
+import uuid
+
+
 class Planet():
     """Planet model"""
 
     all = {}
 
     def __init__(self, name, distance_from_sun):
-        self.id = len(type(self).all) + 1
+        self.id = uuid.uuid4().hex
         self.name = name
         self.distance_from_sun = distance_from_sun
         type(self).all[self.id] = self  
@@ -20,7 +23,7 @@ class Moon():
     all = {}
 
     def __init__(self, name, orbital_period, planet_id):
-        self.id = len(type(self).all) + 1
+        self.id = uuid.uuid4().hex
         self.name = name
         self.orbital_period = orbital_period
         self.planet_id = planet_id  

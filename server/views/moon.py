@@ -22,7 +22,7 @@ class Moons(MethodView):
         return moon
 
 
-@blp.route("/moons/<int:moon_id>")
+@blp.route("/moons/<string:moon_id>")
 class MoonById(MethodView):
     @blp.response(200, MoonSchema)
     def get(self, moon_id):
