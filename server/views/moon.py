@@ -2,7 +2,7 @@ from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
 from model import Moon
-from view.schema import MoonSchema
+from views.schema import MoonSchema
 
 blp = Blueprint("Moon API", __name__, description="Operations on moons")
 
