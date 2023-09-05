@@ -1,7 +1,6 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
-# from setup import db, planets, moons
 from models import Planet
 from views.schemas import PlanetSchema, MoonSchema
 
@@ -20,7 +19,7 @@ class Planets(MethodView):
     def post(self, fields):
         """Insert a new planet"""
         planet = Planet(**fields)
-        return Planet.all[planet.id]
+        return planet
 
 
 @blp.route("/planets/<int:planet_id>")
@@ -28,10 +27,10 @@ class PlanetById(MethodView):
     @blp.response(200, PlanetSchema)
     def get(self, planet_id):
         """Get planet by id"""
-        try:
-            return Planet.all[planet_id]
-        except KeyError:
+        planet = Planet.all.get(planet_id)
+        if planet is None:
             abort(404, message=f"Planet {planet_id} not found.")
+        return planet
 
     @blp.response(204)
     def delete(self, planet_id):
@@ -45,22 +44,21 @@ class PlanetById(MethodView):
     @blp.response(200, PlanetSchema)
     def patch(self, fields, planet_id):
         """Update planet by id"""
-        try:
-            planet = Planet.all[planet_id]
-            for key, value in fields.items():
-                setattr(planet, key, value)
-            return planet
-        except KeyError:
+        planet = Planet.all[planet_id]
+        if planet is None:
             abort(404, message=f"Planet {planet_id} not found.")
-
+        for key, value in fields.items():
+            setattr(planet, key, value)
+        return planet
+            
 
 @blp.route("/planets/<int:planet_id>/moons")
 class PlanetMoonsById(MethodView):
     @blp.response(200, MoonSchema(many=True))
     def get(self, planet_id):
         """Get planet moons by id"""
-        try:
-            planet = Planet.all[planet_id]
-            return planet.moons()
-        except KeyError:
+        planet = Planet.all[planet_id]
+        if planet is None:
             abort(404, message=f"Planet {planet_id} not found.")
+        return planet.moons()
+            

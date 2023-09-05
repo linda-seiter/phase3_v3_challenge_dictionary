@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import MoonCard from "./MoonCard";
-import MoonForm from "./MoonForm";
 import PlanetForm from "./PlanetForm";
+import MoonList from "./MoonList";
 
 function PlanetDetail() {
   const [{ data: planet, error, status }, setPlanet] = useState({
@@ -29,40 +28,10 @@ function PlanetDetail() {
     fetchPlanet().catch(console.error);
   }, [id, fetchPlanet]);
 
-  function handleAddMoon(newMoon) {
-    setPlanet({
-      error,
-      status,
-      data: {
-        ...planet,
-        moons: [...planet.moons, newMoon],
-      },
-    });
-  }
-
   function handleUpdatePlanet() {
     fetchPlanet();
     setShowEdit(false);
   }
-
-  function handleDeleteMoon(id) {
-    fetch(`/moons/${id}`, { method: "DELETE" }).then((r) => {
-      if (r.ok) {
-        setPlanet({
-          error,
-          status,
-          data: {
-            ...planet,
-            moons: planet.moons.filter((moon) => moon.id !== id),
-          },
-        });
-      }
-    });
-  }
-
-  const moonCards = planet?.moons.map((moon) => (
-    <MoonCard key={moon.id} moon={moon} onDelete={handleDeleteMoon} />
-  ));
 
   if (status === "pending") return <h2>Loading...</h2>;
   if (status === "rejected") return <h2>Error: {error.error}</h2>;
@@ -78,7 +47,6 @@ function PlanetDetail() {
         </button>
       </h2>
       <h4>{planet.distance_from_sun} miles from the sun</h4>
-
       {showEdit && (
         <PlanetForm
           planet={planet}
@@ -86,15 +54,7 @@ function PlanetDetail() {
           edit={true}
         />
       )}
-      <hr />
-      <h2>Moons:</h2>
-      <div className="moonList">{moonCards}</div>
-      <hr />
-      <MoonForm
-        onMoonRequest={handleAddMoon}
-        planetId={planet.id}
-        edit={false}
-      />
+      <MoonList planetId={planet.id} />
     </div>
   );
 }

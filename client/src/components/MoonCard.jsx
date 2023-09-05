@@ -3,6 +3,7 @@ import MoonForm from "./MoonForm";
 
 function MoonCard({ moon, onDelete }) {
   const [showEdit, setShowEdit] = useState(false);
+
   function handleUpdateMoon() {
     window.location.reload(false);
   }
