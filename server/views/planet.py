@@ -44,7 +44,7 @@ class PlanetById(MethodView):
     @blp.response(200, PlanetSchema)
     def patch(self, fields, planet_id):
         """Update planet by id"""
-        planet = Planet.all[planet_id]
+        planet = Planet.all.get(planet_id)
         if planet is None:
             abort(404, message=f"Planet {planet_id} not found.")
         for key, value in fields.items():
@@ -57,7 +57,7 @@ class PlanetMoonsById(MethodView):
     @blp.response(200, MoonSchema(many=True))
     def get(self, planet_id):
         """Get planet moons by id"""
-        planet = Planet.all[planet_id]
+        planet = Planet.all.get(planet_id)
         if planet is None:
             abort(404, message=f"Planet {planet_id} not found.")
         return planet.moons()
