@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MoonCard from "./MoonCard";
 import MoonForm from "./MoonForm";
 
@@ -18,6 +18,20 @@ function MoonList({ planetId }) {
     setMoons((moons) => [...moons, newMoon]);
   }
 
+  const fetchMoons = useCallback(async () => {
+    const res = await fetch(`/planets/${planetId}/moons`);
+    if (res.ok) {
+      const moonsJSON = await res.json();
+      setMoons(moonsJSON);
+    } else {
+      setMoons([]);
+    }
+  }, [planetId]);
+
+  useEffect(() => {
+    fetchMoons().catch(console.error);
+  }, [planetId, fetchMoons]);
+
   function handleDeleteMoon(id) {
     fetch(`/moons/${id}`, { method: "DELETE" }).then((r) => {
       if (r.ok) {
@@ -26,8 +40,17 @@ function MoonList({ planetId }) {
     });
   }
 
+  function handleUpdateMoon() {
+    fetchMoons();
+  }
+
   let moonCards = moons.map((moon) => (
-    <MoonCard key={moon.id} moon={moon} onDelete={handleDeleteMoon} />
+    <MoonCard
+      key={moon.id}
+      moon={moon}
+      onDelete={handleDeleteMoon}
+      onUpdate={handleUpdateMoon}
+    />
   ));
 
   return (

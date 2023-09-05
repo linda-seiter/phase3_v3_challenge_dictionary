@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import MoonForm from "./MoonForm";
 
-function MoonCard({ moon, onDelete }) {
+function MoonCard({ moon, onDelete, onUpdate }) {
   const [showEdit, setShowEdit] = useState(false);
 
   function handleUpdateMoon() {
-    window.location.reload(false);
+    onUpdate();
+    setShowEdit(false);
   }
 
   return (

@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, validates, validates_schema, ValidationError
+from marshmallow import Schema, fields, validates, ValidationError
 from marshmallow.validate import Length, Range
 from models import Planet
 
