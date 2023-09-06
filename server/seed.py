@@ -1,8 +1,8 @@
-from model import Planet, Moon
+from models import Planet, Moon
 
 
 def seed():
-    # Initialize the Planet and Moon dictionaries
+    ''' Initialize the Planet and Moon dictionaries'''
     Planet(name="Mercury", distance_from_sun=35000000)
     Planet(name="Venus", distance_from_sun=67000000)
     earth = Planet(name="Earth", distance_from_sun=93000000)

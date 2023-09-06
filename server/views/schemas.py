@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields, validates, ValidationError
 from marshmallow.validate import Length, Range
-from model import Planet
+from models import Planet
 
 
 class MoonSchema(Schema):
