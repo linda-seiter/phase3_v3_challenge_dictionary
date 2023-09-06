@@ -1,7 +1,7 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
 
-from models import Planet
+from models import Planet, Moon
 from views.schemas import PlanetSchema, MoonSchema
 
 blp = Blueprint("Planet API", __name__, description="Operations on planets")
@@ -37,6 +37,8 @@ class PlanetById(MethodView):
         """Delete planet by id"""
         try:
             del Planet.all[planet_id]
+            Moon.all = {id: moon for id, moon in Moon.all.items() if moon.planet_id != planet_id}
+
         except KeyError:
             abort(404, message=f"Planet {planet_id} not found.")
 
